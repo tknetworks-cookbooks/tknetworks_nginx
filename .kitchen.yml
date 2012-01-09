@@ -1,0 +1,21 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: false
+
+platforms:
+- name: debian-wheezy
+  driver_config:
+    box: debian-wheezy
+    box_url: http://projects.tsuntsun.net/~nabeken/boxes/vagrant-debian-wheezy.box
+  run_list:
+  - recipe[apt]
+
+suites:
+- name: default
+  run_list:
+  - recipe[php_fpm::www]
+  - recipe[nginx]
+  - recipe[tknetworks_nginx::example]
+  - recipe[minitest-handler]
+  encrypted_data_bag_secret_key_path: test/integration/secret_key
