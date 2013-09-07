@@ -74,8 +74,6 @@ define :nginx_site_conf,
   if !params[:use_php_fpm].empty? && params[:use_php_fpm].first
     begin
       pool = resources("php_fpm_pool[#{params[:use_php_fpm].last}]")
-      p pool
-      p pool.action
       params[:php_fpm_sock] = pool.sock
     rescue
       params[:php_fpm_sock] = params[:use_php_fpm].last
