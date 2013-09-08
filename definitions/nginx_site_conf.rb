@@ -92,6 +92,7 @@ define :nginx_site_conf,
             :ssl_key  => ssl_key,
             :ssl_cert => ssl_cert
           )
+          cookbook 'tknetworks_nginx'
           source "site.conf.erb"
           notifies :restart, "service[nginx]"
         end
