@@ -54,14 +54,14 @@ define :nginx_site_conf,
       cert = Chef::EncryptedDataBagItem.load('certs', params[:name].gsub('.', '_'))
       file ssl_cert do
         owner node['nginx']['user']
-        group node['nginx']['gid']
+        group node['nginx']['group']
         mode  "0644"
         notifies :restart, "service[nginx]"
         content cert["cert"]
       end
       file ssl_key do
         owner node['nginx']['user']
-        group node['nginx']['gid']
+        group node['nginx']['group']
         mode  "0640"
         notifies :restart, "service[nginx]"
         content cert["key2"]

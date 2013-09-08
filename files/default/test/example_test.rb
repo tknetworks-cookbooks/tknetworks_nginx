@@ -22,6 +22,8 @@ describe_recipe 'tknetworks_nginx::example' do
 
   it 'configures default-debian-wheezy.vagrantup.com' do
     domain = "default-debian-wheezy.vagrantup.com"
+    assert_file("#{node['nginx']['dir']}/ssl/#{domain}.crt", node['nginx']['user'], node['nginx']['group'], 0644)
+    assert_file("#{node['nginx']['dir']}/ssl/#{domain}.key", node['nginx']['user'], node['nginx']['group'], 0640)
     conf = file("#{node['nginx']['dir']}/sites-available/#{domain}")
     conf.must_exist
     conf.must_include("ssl_certificate             /etc/nginx/ssl/#{domain}.crt;")
