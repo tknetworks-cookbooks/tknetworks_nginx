@@ -24,6 +24,11 @@ describe_recipe 'tknetworks_nginx::example' do
     domain = "default-debian-wheezy.vagrantup.com"
     assert_file("#{node['nginx']['dir']}/ssl/#{domain}.crt", node['nginx']['user'], node['nginx']['group'], 0644)
     assert_file("#{node['nginx']['dir']}/ssl/#{domain}.key", node['nginx']['user'], node['nginx']['group'], 0640)
+    vhost = directory("/var/www/#{domain}")
+    vhost.must_have(:mode, 0755)
+    vhost.must_have(:owner, node['nginx']['user'])
+    vhost.must_have(:group, node['nginx']['group'])
+
     conf = file("#{node['nginx']['dir']}/sites-available/#{domain}")
     conf.must_exist
     conf.must_include("ssl_certificate             /etc/nginx/ssl/#{domain}.crt;")

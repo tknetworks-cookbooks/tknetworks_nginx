@@ -43,7 +43,7 @@ define :nginx_site_conf,
   dirs.each do |d|
     directory d do
       owner node['nginx']['user']
-      group node['nginx']['gid']
+      group node['nginx']['group']
       action :create
       recursive true
     end
